@@ -1,0 +1,258 @@
+{% extends 'admin.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-12">
+      <section class="panel">
+        <header class="panel-heading">
+          Customer Details Form 
+        </header>
+        <div class="panel-body">
+          <div class="form">
+            <form class="form-validate form-horizontal" id="feedback_form" method="POST" action="predict">
+                {% csrf_token %}
+              <div class="form-group ">
+                <label for="cname" class="control-label col-lg-2">Full Name <span class="required">*</span></label>
+                <div class="col-lg-10">
+                  <input class="form-control" id="cname" name="cname" minlength="5" type="text" required />
+                </div>
+              </div>
+              <div class="form-group ">
+                  <div class="col-lg-12">
+                <label for="cid" class="control-label col-lg-2">Customer Id <span class="required">*</span></label>
+                <div class="col-lg-4">
+                  <input class="form-control " id="cid" type="text" name="cid" minlength="5" required />
+                </div>
+              
+                <label for="tenure" class="control-label col-lg-2">Tenure <span class="required">*</span></label>
+                <div class="col-lg-4">
+                  <input class="form-control " id="tenure" pattern="^[0-9]{1,3}$" type="text" name="tenure" title="3 digit only"  required />
+                  <span class="help-block">Number of months the customer has stayed with the company.</span>
+                </div>
+                </div>
+              </div>
+
+
+              <div class="form-group ">
+                  <div class="col-lg-12">
+                <label for="gender" class="control-label col-lg-2">Gender<span class="required">*</span></label>
+                <div class="col-lg-2">
+                    <label>
+                  <input type="radio" name="gender" id="male" value="male" required> Male
+                </label><br>
+                <label>
+                  <input type="radio" name="gender" id="female" value="female"> Female
+                </label><br>
+                </div>
+              
+                <label for="senior" class="control-label col-lg-2">Senior Citizen<span class="required">*</span></label>
+                <div class="col-lg-2">
+                    <label>
+                  <input type="radio" name="senior" id="yes" value="yes" required> Yes
+                </label><br>
+                <label>
+                  <input type="radio" name="senior" id="no" value="no"> No
+                </label><br>
+                </div>
+              
+                <label for="partner" class="control-label col-lg-2">Partner<span class="required">*</span></label>
+                <div class="col-lg-2">
+                    <label>
+                  <input type="radio" name="partner" id="yes" value="yes" required> Yes
+                </label><br>
+                <label>
+                  <input type="radio" name="partner" id="no" value="no"> No
+                </label><br>
+                </div>
+              </div>
+              </div>
+
+
+              <div class="form-group ">
+                <div class="col-lg-12">
+                <label for="dependents" class="control-label col-lg-2">Dependents<span class="required">*</span></label>
+                <div class="col-lg-2">
+                    <label>
+                  <input type="radio" name="dependents" id="yes" value="yes" required> Yes
+                </label><br>
+                <label>
+                  <input type="radio" name="dependents" id="no" value="no"> No
+                </label><br>
+                </div>
+              
+                <label for="billing" class="control-label col-lg-2">Paperless Billing<span class="required">*</span></label>
+                <div class="col-lg-2">
+                    <label>
+                  <input type="radio" name="billing" id="yes" value="yes" required> Yes
+                </label><br>
+                <label>
+                  <input type="radio" name="billing" id="no" value="no"> No
+                </label><br>
+                </div>
+                
+                <label for="service" class="control-label col-lg-2">Phone Service<span class="required">*</span></label>
+                <div class="col-lg-2">
+                    <label>
+                  <input type="radio" name="service" id="yes" value="yes" required> Yes
+                </label><br>
+                <label>
+                  <input type="radio" name="service" id="no" value="no"> No
+                </label><br>
+                </div>
+              </div>
+            </div>
+              
+              <div class="form-group ">
+                <div class="col-lg-12">
+                <label for="mcharge" class="control-label col-lg-2">Monthly Charges <span class="required">*</span></label>
+                <div class="col-lg-4">
+                  <input class="form-control " id="mcharge" pattern="^[0-9]{1,3}$" type="text" name="mcharge" title="3 digit only"  required />
+                </div>
+              
+                <label for="tcharge" class="control-label col-lg-2">Total Charges <span class="required">*</span></label>
+                <div class="col-lg-4">
+                  <input class="form-control " id="tcharge" pattern="^[0-9]{1,4}$" type="text" name="tcharge" title="4 digit only"  required />
+                </div>
+
+                </div>
+              </div>
+              
+              <div class="form-group ">
+                  <div class="col-lg-12">
+                <label for="mlines" class="control-label col-lg-2">Multiple Lines <span class="required">*</span></label>
+                <div class="col-lg-4">
+                    <select class="form-control m-bot15" id="mlines" name="mlines" required>
+                        <option value=""></option>
+                        <option value="yes">yes</option>
+                        <option value="no">no</option>
+                        <option value="no service">no service</option>
+                    </select>
+                </div>
+                <label for="iservice" class="control-label col-lg-2">Internet Service <span class="required">*</span></label>
+                <div class="col-lg-4">
+                    <select class="form-control m-bot15" id="iservice" name="iservice" required>
+                        <option value=""></option>
+                        <option value="dsl">DSL</option>
+                        <option value="fiber optic">Fiber Optic</option>
+                        <option value="no ">no</option>
+                    </select>
+                </div>
+
+              </div>
+              </div>
+
+              <div class="form-group ">
+                <div class="col-lg-12">
+              <label for="olsecurity" class="control-label col-lg-2">Online Security <span class="required">*</span></label>
+              <div class="col-lg-4">
+                  <select class="form-control m-bot15" id="olsecurity" name="olsecurity" required>
+                      <option value=""></option>
+                      <option value="yes">yes</option>
+                      <option value="no">no</option>
+                      <option value="no service">no internet service</option>
+                  </select>
+              </div>
+              <label for="olbackup" class="control-label col-lg-2">Online Backup <span class="required">*</span></label>
+              <div class="col-lg-4">
+                  <select class="form-control m-bot15" id="olbackup" name="olbackup" required>
+                    <option value=""></option>
+                    <option value="yes">yes</option>
+                    <option value="no">no</option>
+                    <option value="no service">no internet service</option>
+                  </select>
+              </div>
+
+            </div>
+            </div>
+
+            <div class="form-group ">
+                <div class="col-lg-12">
+              <label for="protection" class="control-label col-lg-2">Device Protection <span class="required">*</span></label>
+              <div class="col-lg-4">
+                  <select class="form-control m-bot15" id="protection" name="protection" required>
+                      <option value=""></option>
+                      <option value="yes">yes</option>
+                      <option value="no">no</option>
+                      <option value="no service">no internet service</option>
+                  </select>
+              </div>
+              <label for="tsupport" class="control-label col-lg-2">Tech Support <span class="required">*</span></label>
+              <div class="col-lg-4">
+                  <select class="form-control m-bot15" id="tsupport" name="tsupport" required>
+                    <option value=""></option>
+                    <option value="yes">yes</option>
+                    <option value="no">no</option>
+                    <option value="no service">no internet service</option>
+                  </select>
+              </div>
+
+            </div>
+            </div>
+
+            <div class="form-group ">
+                <div class="col-lg-12">
+              <label for="smovie" class="control-label col-lg-2">Streaming Movies <span class="required">*</span></label>
+              <div class="col-lg-4">
+                  <select class="form-control m-bot15" id="smovie" name="smovie" required>
+                      <option value=""></option>
+                      <option value="yes">yes</option>
+                      <option value="no">no</option>
+                      <option value="no service">no internet service</option>
+                  </select>
+              </div>
+              <label for="stv" class="control-label col-lg-2">Streaming TV <span class="required">*</span></label>
+              <div class="col-lg-4">
+                  <select class="form-control m-bot15" id="stv" name="stv" required>
+                    <option value=""></option>
+                    <option value="yes">yes</option>
+                    <option value="no">no</option>
+                    <option value="no service">no internet service</option>
+                  </select>
+              </div>
+
+            </div>
+            </div>
+
+            <div class="form-group ">
+                <div class="col-lg-12">
+              <label for="contract" class="control-label col-lg-2">Contract <span class="required">*</span></label>
+              <div class="col-lg-4">
+                  <select class="form-control m-bot15" id="contract" name="contract" required>
+                      <option value=""></option>
+                      <option value="mtm">Month-to-Month</option>
+                      <option value="1">One Year</option>
+                      <option value="2">Two Year</option>
+                  </select>
+              </div>
+              <label for="pmethod" class="control-label col-lg-2">Payment Method <span class="required">*</span></label>
+              <div class="col-lg-4">
+                  <select class="form-control m-bot15" id="pmethod" name="pmethod" required>
+                    <option value=""></option>
+                    <option value="echeck">Electronic Check</option>
+                    <option value="mcheck">Mail Check</option>
+                    <option value="btransfer">Bank Transfer</option>
+                    <option value="ccard">Creadit Card</option>
+                  </select>
+              </div>
+
+            </div>
+            </div>
+
+              
+              <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                  <button class="btn btn-primary" type="submit">Save</button>
+                  <button class="btn btn-default" type="reset">Reset</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+{% endblock %}

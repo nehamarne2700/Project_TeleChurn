@@ -1,0 +1,16 @@
+{% extends 'admin.html' %}
+{% load static %}
+{% block content %}
+<center>
+{% if cust.churn %}
+    <h3>According to our prediction ,This customer will churn.</h3>
+
+    <img src="{% static 'img/Churn.png' %}" class="img-responsive" width="500" height="200" alt="Churn">
+    
+{% else %}
+
+<h3>According to our prediction ,This customer will not churn.</h3>
+<img src="{% static 'img/NoChurn.png' %}" class="img-responsive" width="500" height="200" alt="NoChurn">
+{% endif %}
+</center>
+{% endblock %}
