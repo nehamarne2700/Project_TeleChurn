@@ -45,11 +45,13 @@ def login(request):
 def main(request):
     val1=str(request.POST["username"])
     val2=str(request.POST["password"])
-    print(val1)
+    #print(Tdata.loc[Tdata['customerID']==val1].index.values)
     if(val1=="admin" and val2=="admin"):
         return render(request,'admin.html',{'name':val1})
-    elif(str(Tdata.loc[Tdata['customerID']])==val1):
-        return render(request,'customer.html',{'id':val1})
+    elif (len(Tdata.loc[Tdata['customerID']==val1].index.values))>0:
+        index=Tdata.loc[Tdata['customerID']==val1].index.values[0]
+        cust=customer(Tdata.iloc[index,0],Tdata.iloc[index,1],Tdata.iloc[index,2],Tdata.iloc[index,3],Tdata.iloc[index,4],Tdata.iloc[index,5], Tdata.iloc[index,6],Tdata.iloc[index,7], Tdata.iloc[index,8],Tdata.iloc[index,9], Tdata.iloc[index,10], Tdata.iloc[index,11], Tdata.iloc[index,12],Tdata.iloc[index,13], Tdata.iloc[index,14], Tdata.iloc[index,15], Tdata.iloc[index,16],Tdata.iloc[index,17],Tdata.iloc[index,18], Tdata.iloc[index,19],Tdata.iloc[index,20])    
+        return render(request,'customer.html',{'cust':cust})
     else:
         flag=bool
         flag=True

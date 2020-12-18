@@ -46,7 +46,7 @@ class customer:
         self.__churn=churn
 
     @property
-    def customerID(self):
+    def customerId(self):
         return self.__customerId
 
     @property
@@ -87,7 +87,7 @@ class customer:
 
     @property
     def onlineBackup(self):
-        return self.onlineBackup
+        return self.__onlineBackup
 
     @property
     def deviceProtection(self):

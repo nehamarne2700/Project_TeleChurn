@@ -3,14 +3,163 @@
 {% block content %}
 <center>
 {% if cust.churn %}
-    <h3>According to our prediction ,This customer will churn.</h3>
+<div class="alert alert-block alert-danger fade in">
+  <h3>According to our prediction ,This customer will<strong>churn</strong>.</h3>
+</div>
+    
 
     <img src="{% static 'img/Churn.png' %}" class="img-responsive" width="500" height="200" alt="Churn">
     
 {% else %}
+<div class="alert alert-success fade in">
+  <h3>According to our prediction ,This customer will <strong>Not churn</strong>.</h3>
+</div>
 
-<h3>According to our prediction ,This customer will not churn.</h3>
 <img src="{% static 'img/NoChurn.png' %}" class="img-responsive" width="500" height="200" alt="NoChurn">
 {% endif %}
+<br>
+<div class="row">
+    <div class="col-lg-12">
+      <section class="panel">
+        <header class="panel-heading">
+          Customer Details : 
+        </header>
+        <div class="panel-body">
+          <div class="form">
+            <div class="row">
+              <div class="col-lg-12">
+                <label for="cid" class="control-label col-lg-2">Customer Id :</label>
+                <div class="col-lg-2">
+                  {{cust.customerId}}
+                </div>
+              
+                <label for="tenure" class="control-label col-lg-2">Tenure :</label>
+                <div class="col-lg-2">
+                  {{cust.tenure}}
+                </div>
+
+                <label for="gender" class="control-label col-lg-2">Gender :</label>
+                <div class="col-lg-2">
+                    {{cust.gender}}
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-lg-12">
+              
+                <label for="senior" class="control-label col-lg-2">Senior Citizen :</label>
+                <div class="col-lg-2">
+                    {{cust.seniorCitizen}}
+                </div>
+              
+                <label for="partner" class="control-label col-lg-2">Partner :</label>
+                <div class="col-lg-2">
+                    {{cust.partner}}
+                </div>
+
+                <label for="dependents" class="control-label col-lg-2">Dependents :</label>
+                <div class="col-lg-2">
+                    {{cust.dependents}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                
+                <label for="billing" class="control-label col-lg-2">Paperless Billing :</label>
+                <div class="col-lg-2">
+                    {{cust.paperlessBilling}}
+                </div>
+                
+                <label for="service" class="control-label col-lg-2">Phone Service<span class="required">*</span></label>
+                <div class="col-lg-2">
+                   {{cust.phoneService}}
+                </div>
+
+                <label for="mcharge" class="control-label col-lg-2">Monthly Charges :</label>
+                <div class="col-lg-2">
+                  {{cust.monthlyCharges}}
+                </div>
+              </div>
+            </div>
+              
+              <div class="row">
+                <div class="col-lg-12">
+                
+                <label for="tcharge" class="control-label col-lg-2">Total Charges :</label>
+                <div class="col-lg-2">
+                  {{cust.totalCharges}}
+                </div>
+
+                <label for="mlines" class="control-label col-lg-2">Multiple Lines :</label>
+                <div class="col-lg-2">
+                  {{cust.multipleLines}}
+                </div>
+                <label for="iservice" class="control-label col-lg-2">Internet Service <span class="required">*</span></label>
+                <div class="col-lg-2">
+                    {{cust.internetService}}
+                </div>
+
+              </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+              <label for="olsecurity" class="control-label col-lg-2">Online Security <span class="required">*</span></label>
+              <div class="col-lg-2">
+                  {{cust.onlineSecurity}}
+              </div>
+              <label for="olbackup" class="control-label col-lg-2">Online Backup <span class="required">*</span></label>
+              <div class="col-lg-2">
+                  {{cust.onlineBackup}}
+              </div>
+              <label for="protection" class="control-label col-lg-2">Device Protection :</label>
+              <div class="col-lg-2">
+                  {{cust.deviceProtection}}
+              </div>
+            </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+              
+              <label for="tsupport" class="control-label col-lg-2">Tech Support :</label>
+              <div class="col-lg-2">
+                  {{cust.techSupport}}
+              </div>
+
+              <label for="smovie" class="control-label col-lg-2">Streaming Movies :</label>
+              <div class="col-lg-2">
+                  {{cust.streamingMovies}}
+              </div>
+              <label for="stv" class="control-label col-lg-2">Streaming TV :</label>
+              <div class="col-lg-2">
+                  {{cust.streamingTV}}
+              </div>
+
+            </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+              <label for="contract" class="control-label col-lg-2">Contract :</label>
+              <div class="col-lg-2">
+                  {{cust.contract}}
+              </div>
+              <label for="pmethod" class="control-label col-lg-2">Payment Method <span class="required">*</span></label>
+              <div class="col-lg-2">
+                  {{cust.paymentMethod}}
+              </div>
+              <label for="churn" class="control-label col-lg-2">Churn :</label>
+              <div class="col-lg-2">
+                  {{cust.churn}}
+              </div>
+            </div>
+            </div>
+
+          </div></div></section></div></div>
+
+
 </center>
 {% endblock %}
