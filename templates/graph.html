@@ -8,21 +8,21 @@
         <div class="col-lg-6">
           <section class="panel">
             <header class="panel-heading">
-              Total Churn Percentage In Availble Data
+             <h4> Total Churn Percentage In Availble Data</h4>
             </header>
             <div class="panel-body">
               <center>
-              <img src="{% static 'img/graphs/churnGraph.png' %}" class="img-responsive" width="300" height="330" alt="percentageChurn">
+              <img src="{% static 'img/graphs/churnGraph.png' %}" class="img-responsive" width="420" height="450" alt="percentageChurn">
               <center>
             </div></section></div>
         <div class="col-lg-6">
             <section class="panel">
               <header class="panel-heading">
-                Total Churn According To Gender
+                <h4>Total Churn According To Gender</h4>
               </header>
               <div class="panel-body">
                 <center>
-                <img src="{% static 'img/graphs/gender.png' %}" class="img-responsive" width="400" height="450" alt="percentageChurn">
+                <img src="{% static 'img/graphs/gender.png' %}" class="img-responsive" width="400" height="450" alt="gender">
                 </center>
               </div></section></div>
         </div>
@@ -31,16 +31,11 @@
           <div class="col-lg-12">
             <section class="panel">
               <header class="panel-heading">
-                Total Churn Percentage In Availble Data
+                <h4>Understanding The Numerical Column Values Distribution</h4>
               </header>
-              <div class="panel-body">
-                <div class="col-lg-6">
-                <img src="{% static 'img/graphs/histogram1.png' %}" class="img-responsive" width="620" height="730" alt="percentageChurn">
-              </div>
-                <div class="col-lg-6">
-                  <img src="{% static 'img/graphs/histogram2.png' %}" class="img-responsive" width="620" height="730" alt="percentageChurn">
-                </div>
-                </div>
+                <center>
+                <img src="{% static 'img/graphs/hist.png' %}" class="img-responsive" width="620" height="730" alt="histogram">
+              </center>
             </section>
                 </div></div>
 
@@ -48,16 +43,83 @@
                   <div class="col-lg-12">
                     <section class="panel">
                       <header class="panel-heading">
-                        Total Churn Percentage In Availble Data
+                        <h4>Understanding The MultiValue Column Values Distribution</h4>
                       </header>
                       <div class="panel-body">
                         <div class="col-lg-12"><center>
-                          <img src="{% static 'img/graphs/countplot.png' %}" class="img-responsive" width="1000" height="630" alt="percentageChurn">
+                          <img src="{% static 'img/graphs/subplot.png' %}" class="img-responsive" width="1000" height="630" alt="subplot">
                         </center></div>
                         </div>
                     </section>
                         </div></div>
         
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <section class="panel">
+                              <header class="panel-heading">
+                                <h4>Understanding The BinaryValue Column Values Distribution With Churn </h4>
+                              </header>
+                              <div class="panel-body">
+                                <div class="col-lg-6">
+                                  <img src="{% static 'img/graphs/partner.png' %}" class="img-responsive" width="500" height="500" alt="partner">
+                               </div>
+                               <div class="col-lg-6">
+                                <img src="{% static 'img/graphs/dependents.png' %}" class="img-responsive" width="500" height="500" alt="dependents">
+                             </div>
+                             <div class="col-lg-6">
+                              <img src="{% static 'img/graphs/paperlessbilling.png' %}" class="img-responsive" width="500" height="500" alt="paperlessbilling">
+                           </div>
+                           <div class="col-lg-6">
+                            <img src="{% static 'img/graphs/phoneservice.png' %}" class="img-responsive" width="500" height="500" alt="phoneservice">
+                         </div>
+                                </div>
+                            </section>
+                                </div></div>
+
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <section class="panel">
+                                      <header class="panel-heading">
+                                       <h4> Correation</h4>
+                                      </header>
+                                      <div class="panel-body">
+                                        <div class="col-lg-12"><center>
+                                          <img src="{% static 'img/graphs/correlation.png' %}" class="img-responsive" width="900" height="630" alt="correlation">
+                                        </center></div>
+                                        </div>
+                                    </section>
+                                        </div></div>
+
+                                        <div class="row">
+                                          <div class="col-lg-12">
+                                            <section class="panel">
+                                              <header class="panel-heading">
+                                                <h4>Feature Importance</h4>
+                                              </header>
+                                              <div class="panel-body">
+                                                <div class="col-lg-12"><center>
+                                                  <img src="{% static 'img/graphs/featureimp.png' %}" class="img-responsive" width="900" height="630" alt="featurnimp">
+                                                </center></div>
+                                                </div>
+                                            </section>
+                                                </div></div>
+
+                                    <div class="row">
+                                      <div class="col-lg-12">
+                                        <section class="panel">
+                                          <header class="panel-heading">
+                                            <h4>Confusion Matrix</h4>
+                                          </header>
+                                          <div class="panel-body">
+                                            <div class="col-lg-12"><center><h3>
+                                              Algorithm : Logistics Regression<br>
+                                              Model Accuracy : {{accuracy}}<br>
+                                            </h3>
+                                              <img src="{% static 'img/graphs/confusionMatrix.png' %}" class="img-responsive" width="500" height="500" alt="confusionMatrix">
+                                            </div></center>
+                                            </div>
+                                        </section>
+                                            </div></div>
     
     <!--main content end-->
 

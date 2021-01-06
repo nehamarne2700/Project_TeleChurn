@@ -7,28 +7,167 @@ import numpy as np
 import pandas as pd  
 import matplotlib
 matplotlib.use(('Agg'))
-import matplotlib.pyplot as plt 
+from matplotlib import pyplot as plt
 import sklearn
-import seaborn
-import PIL
-from PIL import Image
-from io import StringIO
+import seaborn as sns
+from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LogisticRegression
+
+from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import f1_score, roc_auc_score, recall_score, precision_score, make_scorer, accuracy_score, roc_curve, confusion_matrix, classification_report
+
+
 from matplotlib import pylab
 from pylab import *
 import io
 # Create your views here.
 
 path=os.path.join(os.path.dirname(__file__),'churn.csv')
-Tdata = pd.read_csv(path)
-Tdata.TotalCharges= pd.to_numeric(Tdata.TotalCharges, errors='coerce')
-Tdata['TotalCharges'].fillna((Tdata['TotalCharges'].mean()), inplace=True)
-'''Tdata.drop('customerID',axis=1, inplace=True)
-Num_cols = Tdata.select_dtypes(include=['float64','int64']).columns.tolist()
-Cat_cols = Tdata.select_dtypes(include=['object']).columns.tolist()
+Tdata1 = pd.read_csv(path)
+Tdata1.TotalCharges= pd.to_numeric(Tdata1.TotalCharges, errors='coerce')
+Tdata1['TotalCharges'].fillna((Tdata1['TotalCharges'].mean()), inplace=True)
+Tdata =pd.read_csv(path)
 
-#print(Tdata[Num_cols[1]])
-n,bins,patches=plt.hist(Tdata[Num_cols[1]],5,facecolor='blue',alpha=0.5)
-plt.savefig('hist.png')'''
+Tdata1.drop('customerID',axis=1, inplace=True)
+print(Tdata.head())
+Num_cols = Tdata1.select_dtypes(include=['float64','int64']).columns.tolist()
+Cat_cols = Tdata1.select_dtypes(include=['object']).columns.tolist()
+#print(Tdata1[Num_cols[1]])
+Tdata1[Num_cols].hist(figsize = (10,10))
+plt.savefig('static/img/graphs/hist.png',bbox_inches="tight")
+plt.clf()
+plt.figure(figsize=(10,10))
+sns.set(font_scale=2)
+sns.set_style("whitegrid")
+sns_plot=sns.countplot(x="Churn", hue="gender", data=Tdata1)
+plt.xlabel("Churn",size=23)
+plt.ylabel("Gender",size=23)
+plt.title("Gender vs Churn ",size=23)
+plt.savefig('static/img/graphs/gender.png',bbox_inches="tight")
+
+Binary_class = Tdata1[Cat_cols].nunique()[Tdata1[Cat_cols].nunique() == 2].keys().tolist()
+Multi_class =  Tdata1[Cat_cols].nunique()[Tdata1[Cat_cols].nunique() > 2].keys().tolist()
+
+cr=['b','r','g']
+sns.set(font_scale=1)
+sns.set_style("whitegrid")
+fig, axes = plt.subplots(nrows = 3,ncols = 3,figsize = (15,12))
+for i, item in enumerate(Multi_class):
+    if i < 3:
+        ax = Tdata1[item].value_counts().plot(kind = 'bar',ax=axes[i,0],rot = 0,color=cr)
+        
+    elif i >=3 and i < 6:
+        ax = Tdata1[item].value_counts().plot(kind = 'bar',ax=axes[i-3,1],rot = 0,color=cr)
+        
+    elif i < 9:
+        ax = Tdata1[item].value_counts().plot(kind = 'bar',ax=axes[i-6,2],rot = 0,color=cr)
+    #ax.grid(False)
+    ax.set_title(item)
+
+plt.savefig('static/img/graphs/subplot.png',bbox_inches="tight")
+
+plt.clf()
+sns.catplot(x="Partner", hue="Churn", col="Churn",data=Tdata1, kind="count",height=4, aspect=.7,  facecolor=(0, 0, 0, 0),
+linewidth=5,edgecolor=sns.color_palette("dark", 5))
+plt.savefig('static/img/graphs/partner.png',bbox_inches="tight")
+
+plt.clf()
+sns.catplot(x="Dependents", hue="Churn", col="Churn",data=Tdata1, kind="count",height=4, aspect=.7,  facecolor=(0, 0, 0, 0),
+linewidth=5,edgecolor=sns.color_palette("dark", 5))
+plt.savefig('static/img/graphs/dependents.png',bbox_inches="tight")
+
+plt.clf()
+sns.catplot(x="PhoneService", hue="Churn", col="Churn",data=Tdata1, kind="count",height=4, aspect=.7,  facecolor=(0, 0, 0, 0),
+linewidth=5,edgecolor=sns.color_palette("dark", 5))
+plt.savefig('static/img/graphs/phoneservice.png',bbox_inches="tight")
+
+plt.clf()
+sns.catplot(x="PaperlessBilling", hue="Churn", col="Churn",data=Tdata1, kind="count",height=4, aspect=.7,  facecolor=(0, 0, 0, 0),
+linewidth=5,edgecolor=sns.color_palette("dark", 5))
+plt.savefig('static/img/graphs/paperlessbilling.png',bbox_inches="tight")
+
+#Label encoding Binary columns
+le = LabelEncoder()
+for i in Binary_class :
+    Tdata1[i] = le.fit_transform(Tdata1[i])
+
+# Split multi class catergory columns as dummies  
+Tdata_Dummy = pd.get_dummies(Tdata1[Multi_class])
+
+New_df = pd.concat([Tdata1[Num_cols],Tdata1[Binary_class],Tdata_Dummy], axis=1)
+#print(New_df.shape)
+
+# Data to plot Percent of churn  
+labels =["No Churn","Churn"]
+sizes = New_df['Churn'].value_counts(sort = True)
+
+colors = ["whitesmoke","red"]
+explode = (0.1,0)  # explode 1st slice
+plt.clf()
+plt.pie(sizes, explode=explode, labels=labels, colors=colors,autopct='%1.1f%%', shadow=True, startangle=270,radius=1.5)
+plt.legend()
+plt.title('Percent of churn in customer')
+plt.savefig('static/img/graphs/churnGraph.png',bbox_inches="tight")
+
+#correlation
+corr = New_df.corr()
+
+mask = np.zeros_like(corr, dtype=np.bool)
+mask[np.triu_indices_from(mask)] = True
+
+f, ax = plt.subplots(figsize=(11, 9))
+plt.clf()
+
+sns.set(font_scale=1)
+cmap=sns.light_palette("seagreen", reverse=True)
+sns.set_style("whitegrid")
+#plt.gcf().subplots_adjust(bottom=0.25)
+sns_plot=sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0,
+            square=True, linewidths=.5, cbar_kws={"shrink": .5})
+plt.savefig('static/img/graphs/correlation.png',bbox_inches="tight")
+
+X = New_df.loc[:, New_df.columns != 'Churn']
+y = New_df["Churn"]
+
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2,random_state =1)
+params = {'random_state': 0, 'n_jobs': 4, 'n_estimators': 5000, 'max_depth': 8}
+
+# Fit RandomForest Classifier
+clf = RandomForestClassifier(**params)
+clf = clf.fit(X, y)
+# Plot features importances
+imp = pd.Series(data=clf.feature_importances_, index=X.columns).sort_values(ascending=False)
+plt.clf()
+sns.set_style("whitegrid")
+plt.figure(figsize=(10,12))
+plt.title("Feature importance")
+ax = sns.barplot(y=imp.index, x=imp.values, palette="Blues_r", orient='h')
+plt.savefig('static/img/graphs/featureImp.png',bbox_inches="tight")
+
+print('The number of samples into the Train data is {}.'.format(x_train.shape[0]))
+print('The number of samples into the Test data is {}.'.format(x_test.shape[0]))
+
+logistic_model = LogisticRegression(max_iter=200)
+logistic_model.fit(x_train,y_train)
+accuracy = logistic_model.score(x_test,y_test)
+print("Logistic Regression accuracy is :",accuracy*100)
+
+#for Logistic Regression
+cm_lr = confusion_matrix(y_test,logistic_model.predict(x_test))
+#confusion matrix visualization
+plt.clf()
+f, ax = plt.subplots(figsize = (5,5))
+labels=["No Churn","Churn"]
+sns.heatmap(cm_lr,xticklabels=labels,yticklabels=labels, annot = True, linewidths = 0.5, color = "red", fmt = ".0f", ax=ax)
+plt.xlabel("y_predicted")
+plt.ylabel("y_true")
+plt.title("Confusion Matrix of Logistic Regression")
+plt.savefig('static/img/graphs/confusionMatrix.png',bbox_inches="tight")
+
+#data=[0,1,29,29,0,1,0,0,1,0,1,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,1,1,1,0,0,1,1,0,0,1,0]
+#print(logistic_model.predict([data]))
 
 
 def loadCSV(request):
@@ -45,7 +184,7 @@ def login(request):
 def main(request):
     val1=str(request.POST["username"])
     val2=str(request.POST["password"])
-    #print(Tdata.loc[Tdata['customerID']==val1].index.values)
+    print(Tdata.loc[Tdata['customerID']==val1].index.values)
     if(val1=="admin" and val2=="admin"):
         return render(request,'admin.html',{'name':val1})
     elif (len(Tdata.loc[Tdata['customerID']==val1].index.values))>0:
@@ -126,14 +265,20 @@ def predict(request):
     data.append(a if pmethod=="btransfer" else b)
     data.append(a if pmethod=="ccard" else b)
     print(data,size(data))
-    predt=ChurnanalysisConfig.model.predict([data])[0]
+    #predt=ChurnanalysisConfig.model.predict([data])[0]
+    predt=logistic_model.predict([data])[0]
     print(predt)
     cust=customer(cid, gender, senior, partner, dependents,tenure, service, mlines, iservice,olsecurity, olbackup, protection, tsupport,stv, smovie, contract, billing,pmethod, mcharge, tcharge,predt)
     return render(request,'predResult.html',{'cust':cust})
 
 def graph(request):
-    return render(request,'graph.html')
+    return render(request,'graph.html',{'accuracy':accuracy})
     
+def help(request):
+    return render(request,'help.html')
+    
+def admin(request):
+    return render(request,'admin.html')
 
 '''
 def home(request):

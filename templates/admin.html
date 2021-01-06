@@ -24,19 +24,6 @@
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
   <link href="{% static 'css/style-responsive.css' %}" rel="stylesheet" />
 
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
-  <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
-      <script src="js/respond.min.js"></script>
-      <script src="js/lte-ie7.js"></script>
-    <![endif]-->
-
-    <!-- =======================================================
-      Theme Name: NiceAdmin
-      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-      Author: BootstrapMade
-      Author URL: https://bootstrapmade.com
-    ======================================================= -->
 <style>
   .scrollable-panel{
     height: 800px;
@@ -56,20 +43,10 @@
       </div>
 
       <!--logo start-->
-      <a href="index.html" class="logo">Telecom <span class="lite">Churn</span></a>
+      <a href="blank" class="logo">Telecom <span class="lite">Churn</span></a>
       <!--logo end-->
 
-      <div class="nav search-row" id="top_menu">
-        <!--  search form start -->
-        <ul class="nav top-menu">
-          <li>
-            <form class="navbar-form">
-              <input class="form-control" placeholder="Search" type="text">
-            </form>
-          </li>
-        </ul>
-        <!--  search form end -->
-      </div>
+      
 
       <div class="top-nav notification-row">
         <!-- notificatoin dropdown start-->
@@ -101,15 +78,10 @@
         </li>
         
         <li class="sub-menu ">
-          <a href="javascript:;" class="">
+          <a href="help" class="">
                         <i class="icon_documents_alt"></i>
                         <span>Help</span>
-                        <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
-          <ul class="sub">
-            <li><a class="" href="contact.html"><span>Contact</span></a></li>
-            <li><a class="active" href="help.html">Help</a></li>
-          </ul>
         </li>
 
       </ul>
@@ -124,7 +96,7 @@
         <div class="col-lg-12">
           <h3 class="page-header"><i class="fa fa fa-bars"></i> Admin</h3>
           <ol class="breadcrumb">
-            <li><i class="fa fa-home"></i><a href="#">Admin</a></li>
+            <li><i class="fa fa-home"></i><a href="admin">Admin</a></li>
             <li><i class="icon_profile"></i><a href="loadCSV">Customers</a></li>
             <li><i class="fa fa-cubes"></i><a href="graph">Charts & Graphs</a></li>
             <li><i class="fa fa-cubes"></i><a href="detailsForm">PredictChurn</a></li>
@@ -133,16 +105,42 @@
       </div>
       <!-- page start-->
       {% block content %}
-      
+      <div class="row">
+        <div class="col-lg-12">
+        <section class="panel">
+          <header class="panel-heading">
+           <h3> Dataset Details:</h3>
+          </header>
+          <div class="panel-body">
+        <div class="col-lg-12">
+        <ul><table>
+          <tr><li><td>customerID :</td><td> Customer ID</td></li></tr>
+          <tr><li><td>Gender :</td><td> Whether the customer is a male or a female</td></li></tr>
+          <tr><li><td>SeniorCitizen :</td><td> Whether the customer is a senior citizen or not (1, 0)</td></li></tr>
+          <tr><li><td>Partner:</td><td> Whether the customer has a partner or not (Yes, No)</td></li></tr>
+          <tr><li><td>Dependents:</td><td> Whether the customer has dependents or not (Yes, No)</td></li></tr>
+          <tr><li><td>Tenure:</td><td> Number of months the customer has stayed with the company</td></li></tr>
+          <tr><li><td>PhoneService :</td><td> Whether the customer has a phone service or not (Yes, No)</td></li></tr>
+          <tr><li><td>MultipleLines:</td><td> Whether the customer has multiple lines or not (Yes, No, No phone service)</td></li></tr>
+          <tr><li><td>InternetServiceCustomer’s :</td><td> internet service provider (DSL, Fiber optic, No)</td></li></tr>
+          <tr><li><td>OnlineSecurity:</td><td> Whether the customer has online security or not (Yes, No, No internet service)</td></li></tr>
+          <tr><li><td>OnlineBackup:</td><td> Whether the customer has online backup or not (Yes, No, No internet service)</td></li></tr>
+          <tr><li><td>DeviceProtection :</td><td> Whether the customer has device protection or not (Yes, No, No internet service)</td></li></tr>
+          <tr><li><td>TechSupport :</td><td> Whether the customer has tech support or not (Yes, No, No internet service)</td></li></tr>
+          <tr><li><td>StreamingTV :</td><td> Whether the customer has streaming TV or not (Yes, No, No internet service)</td></li></tr>
+          <tr><li><td>StreamingMovies:</td><td> Whether the customer has streaming movies or not (Yes, No, No internet service)</td></li></tr>
+          <tr><li><td>Contract:</td><td> The contract term of the customer (Month-to-month, One year, Two year)</td></li></tr>
+          <tr><li><td>PaperlessBilling:</td><td> Whether the customer has paperless billing or not (Yes, No)</td></li></tr>
+          <tr><li><td>PaymentMethod:</td><td> The customer’s payment method (Electronic check, Mailed check, Bank transfer (automatic), Credit card (automatic))</td></li></tr>
+          <tr><li><td>MonthlyCharges:</td><td> The amount charged to the customer monthly</td></li></tr>
+          <tr><li><td>TotalCharges:</td><td> The total amount charged to the customer</td></li></tr>
+          <tr><li><td>Churn:</td><td> Whether the customer churned or not (Yes or No)</td></li></tr>
+        </table></ul>
+      </div></div></section></div></div>
       {% endblock %}
  <div class="text-right">
       <div class="credits">
-          <!--
-            All the links in the footer should remain intact.
-            You can delete the links only if you purchased the pro version.
-            Licensing information: https://bootstrapmade.com/license/
-            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
-          -->
+          
           Designed by Neha,Akanksha,Ishita</a>
         </div>
     </div>
