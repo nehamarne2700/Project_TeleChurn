@@ -31,7 +31,7 @@ Tdata1['TotalCharges'].fillna((Tdata1['TotalCharges'].mean()), inplace=True)
 Tdata =pd.read_csv(path)
 
 Tdata1.drop('customerID',axis=1, inplace=True)
-print(Tdata.head())
+#print(Tdata.head())
 Num_cols = Tdata1.select_dtypes(include=['float64','int64']).columns.tolist()
 Cat_cols = Tdata1.select_dtypes(include=['object']).columns.tolist()
 #print(Tdata1[Num_cols[1]])
@@ -128,6 +128,11 @@ sns_plot=sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0,
             square=True, linewidths=.5, cbar_kws={"shrink": .5})
 plt.savefig('static/img/graphs/correlation.png',bbox_inches="tight")
 
+plt.clf()
+plt.figure(figsize=(15,8))
+New_df.corr()['Churn'].sort_values(ascending=False).plot(kind='bar')
+plt.savefig('static/img/graphs/correlationNew.png',bbox_inches="tight")
+
 X = New_df.loc[:, New_df.columns != 'Churn']
 y = New_df["Churn"]
 
@@ -152,7 +157,8 @@ print('The number of samples into the Test data is {}.'.format(x_test.shape[0]))
 logistic_model = LogisticRegression(max_iter=200)
 logistic_model.fit(x_train,y_train)
 accuracy = logistic_model.score(x_test,y_test)
-print("Logistic Regression accuracy is :",accuracy*100)
+accuracy=accuracy*100
+print("Logistic Regression accuracy is :",accuracy)
 
 #for Logistic Regression
 cm_lr = confusion_matrix(y_test,logistic_model.predict(x_test))
